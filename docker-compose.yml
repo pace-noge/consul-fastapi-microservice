@@ -38,7 +38,6 @@ services:
         environment:
             - SECRET_KEY=super-secret-key
             - ADDRESS=school_service
-            - PORT=8000
         links:
             - consul
         depends_on:
