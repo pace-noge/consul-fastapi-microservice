@@ -1,0 +1,48 @@
+version: '3.7'
+
+
+services:
+    consul:
+        image: consul:1.9.4
+        hostname: consul
+        command: consul agent -dev -client 0.0.0.0
+        ports:
+            - 8500:8500
+            - 8600:8600/udp
+        volumes:
+            - ./consul/data:/consul/data
+            - ./consul/config:/consul/config
+    
+    student_service:
+        build: ./microservices/student-service/
+        command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+        volumes:
+            - ./microservices/student-service/:/app/
+        ports:
+            - 8001:8000
+        environment:
+            - SECRET_KEY=super-secret-key
+            - ADDRESS=student_service
+        links:
+            - consul
+        depends_on:
+            - consul
+
+    school_service:
+        build: ./microservices/school-service/
+        command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+        volumes:
+            - ./microservices/school-service/:/app/
+        ports:
+            - 8000:8000
+        environment:
+            - SECRET_KEY=super-secret-key
+            - ADDRESS=school_service
+            - PORT=8000
+        links:
+            - consul
+        depends_on:
+            - consul
+
+ 
+
