@@ -20,15 +20,15 @@ def register_to_consul():
             'http': f'http://{configuration.address}:{configuration.port}/health',
             'interval': '10s'
         },
-        "connect": {
+         "connect": {
             "sidecar_service": {
                 "proxy": {
-                    "upstreams": {
+                    "upstreams": [
                         {
                             "destination_name": "student",
                             "local_bind_port": 3000
                         }
-                    }
+                    ]
                 }
             }
         }

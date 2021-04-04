@@ -20,9 +20,9 @@ def register_to_consul():
             "http": f"http://{configuration.address}:{configuration.port}/health",
             'interval': '10s'
         },
-        "connect": {
-            "sidecar_service": {}
-        }
+        # "connect": {
+        #    "sidecar_service": {}
+        #}
     }
     print('Service registration parameters: ', data)
     res = {"message": "registering"}
