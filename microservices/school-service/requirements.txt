@@ -1,5 +1,6 @@
 uvicorn
 fastapi
 httpx
+python-consul
 
 

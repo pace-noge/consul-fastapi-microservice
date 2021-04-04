@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import httpx
 
+# from register_service import register
 
 from utils import register_to_consul
 
@@ -16,6 +17,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 def startup():
+    # register()
     register_to_consul()
 
 

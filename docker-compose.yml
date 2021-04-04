@@ -5,6 +5,8 @@ services:
     consul:
         image: consul:1.9.4
         hostname: consul
+        # command: consul agent -server -ui -client=0.0.0.0 -enable-script-checks -config-dir=/consul/config/consul.d -data-dir=/consul/data
+        # command: consul agent -server -ui -client 0.0.0.0
         command: consul agent -dev -client 0.0.0.0
         ports:
             - 8500:8500
@@ -23,6 +25,8 @@ services:
         environment:
             - SECRET_KEY=super-secret-key
             - ADDRESS=student_service
+            - CONSUL_HOST=consul
+            - CONSUL_PORT=8500
         links:
             - consul
         depends_on:
@@ -38,6 +42,8 @@ services:
         environment:
             - SECRET_KEY=super-secret-key
             - ADDRESS=school_service
+            - CONSUL_HOST=consul
+            - CONSUL_PORT=8500
         links:
             - consul
         depends_on:

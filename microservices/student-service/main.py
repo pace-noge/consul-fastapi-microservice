@@ -8,6 +8,7 @@ import logging
 
 from config import Config
 from utils import register_to_consul
+# from register_service import register as register_to_consul
 
 configuration = Config()
 
@@ -32,6 +33,7 @@ app = create_app()
 
 @app.on_event("startup")
 def startup_event():
+    # register_to_consul()
     register_to_consul()
 
 
@@ -48,7 +50,8 @@ async def health_status():
 
 @app.get("/register-service")
 async def register():
-    return register_to_consul()
+    # return register_to_consul()
+    register_to_consul()
 
 
 @app.get("/name/{name}")
